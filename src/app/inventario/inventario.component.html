@@ -1,0 +1,57 @@
+<div *ngIf="inventarioService"></div>
+
+<form [formGroup]="formulario" (ngSubmit)="agregarProducto()">
+    <label for="codigo">Código del Producto:</label>
+    <input type="text" id="codigo" formControlName="codigo">
+  
+    <label for="nombre">Nombre del Producto:</label>
+    <input type="text" id="nombre" formControlName="nombre">
+  
+    <label for="tipo">Tipo de Producto:</label>
+
+    <select id="tipo" formControlName="tipo">
+      <option value="tipo1">Tipo 1</option>
+      <option value="tipo2">Tipo 2</option>
+
+    </select>
+  
+    <label for="precio">Precio del Producto:</label>
+    <input type="number" id="precio" formControlName="precio">
+  
+    <label for="cantidad">Cantidad del Producto:</label>
+    <input type="number" id="cantidad" formControlName="cantidad">
+  
+    <button type="submit">Agregar Producto</button>
+  </form>
+  
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of inventarioService.productos; let i = index">
+        <td>{{ producto.codigo }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.tipo }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.cantidad }}</td>
+        <td>{{ producto.precio * producto.cantidad }}</td>
+        <td><button (click)="quitarProducto(i)">Quitar</button></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div>
+    <p>Cantidad de productos: {{ inventarioService.productos.length }}</p>
+    <p>Valor total: ${{ calcularValorTotal() }}</p>
+  </div>
+  
